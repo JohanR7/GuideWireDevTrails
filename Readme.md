@@ -1,4 +1,4 @@
-# GigMate : AI-Powered Parametric Income Protection for India's Food Delivery Workforce
+# HustleHedge : AI-Powered Parametric Income Protection for India's Food Delivery Workforce
 
 
 > 🏆 Guidewire DEVTrails 2026 | University Hackathon Submission  
@@ -33,9 +33,9 @@ Traditional insurance fails here. Claims take weeks. Workers need money now. By 
 
 ## Project Overview
 
-GigMate is an AI-native parametric insurance platform purpose-built to protect the livelihoods of food delivery partners operating on platforms such as Swiggy and Zomato. In an environment where extreme weather events, civic disruptions, and environmental degradation can erode 20–30% of a delivery partner's monthly income, traditional insurance models are ill-suited to respond. Their high administrative overhead and slow claims cycles make them structurally incompatible with the weekly income rhythms and day-to-day financial realities of gig workers.
+HustleHedge is an AI-native parametric insurance platform purpose-built to protect the livelihoods of food delivery partners operating on platforms such as Swiggy and Zomato. In an environment where extreme weather events, civic disruptions, and environmental degradation can erode 20–30% of a delivery partner's monthly income, traditional insurance models are ill-suited to respond. Their high administrative overhead and slow claims cycles make them structurally incompatible with the weekly income rhythms and day-to-day financial realities of gig workers.
 
-GigMate addresses this gap through a high-frequency, weekly premium model powered by automated parametric triggers, enabling near-instant financial relief when a covered disruption occurs. The platform insures against loss of income—not physical assets, health, life, accidents, or vehicle damage—making it a focused and compliant financial safety net for the delivery workforce.
+HustleHedge addresses this gap through a high-frequency, weekly premium model powered by automated parametric triggers, enabling near-instant financial relief when a covered disruption occurs. The platform insures against loss of income—not physical assets, health, life, accidents, or vehicle damage—making it a focused and compliant financial safety net for the delivery workforce.
 
 ---
 
@@ -86,7 +86,7 @@ The following disruption categories represent the primary external triggers for 
 
 ## Weekly Protection Plans
 
-GigMate offers three protection tiers designed to match the financial reality of gig workers. Premiums renew weekly—aligned with how delivery partners earn—not monthly. All plans are heavily subsidized through platform partnerships and tip-based funding to ensure affordability for workers earning below ₹15,000 per month.
+HustleHedge offers three protection tiers designed to match the financial reality of gig workers. Premiums renew weekly—aligned with how delivery partners earn—not monthly. All plans are heavily subsidized through platform partnerships and tip-based funding to ensure affordability for workers earning below ₹15,000 per month.
 
 | Plan | Worker Contribution | Platform/Tip Subsidy | Total Weekly Premium | Max Weekly Payout | Best Suited For |
 |------|---------------------|----------------------|----------------------|-------------------|-----------------|
@@ -109,7 +109,7 @@ GigMate offers three protection tiers designed to match the financial reality of
 
 Gig workers earn weekly. Traditional insurance bills monthly. This mismatch forces workers to budget for premiums during lean weeks—creating financial strain that defeats the purpose of protection.
 
-GigMate charges weekly, renewing every Sunday alongside Swiggy and Zomato payout cycles. This eliminates budgeting friction and ensures protection never lapses due to cash flow gaps.
+HustleHedge charges weekly, renewing every Sunday alongside Swiggy and Zomato payout cycles. This eliminates budgeting friction and ensures protection never lapses due to cash flow gaps.
 
 ---
 
@@ -205,13 +205,13 @@ This hybrid architecture achieves anomaly detection accuracy between 95% and 99.
 
 ### The Threat
 
-Following confirmed exploitation of parametric insurance platforms by coordinated fraud syndicates—specifically, groups of delivery workers using GPS-spoofing applications to simulate presence in high-risk zones while remaining at home—GigMate incorporates a dedicated, multi-layered adversarial defense architecture. Basic GPS verification is treated as an insufficient and obsolete signal for claim validation.
+Following confirmed exploitation of parametric insurance platforms by coordinated fraud syndicates—specifically, groups of delivery workers using GPS-spoofing applications to simulate presence in high-risk zones while remaining at home—HustleHedge incorporates a dedicated, multi-layered adversarial defense architecture. Basic GPS verification is treated as an insufficient and obsolete signal for claim validation.
 
 ---
 
 ### 1. The Differentiation: Multi-Modal Contextual Validation
 
-GigMate does not rely on a single location signal. Instead, it validates the physical coherence of the device's entire reported environment. A spoofing application typically overrides location data at the Android software layer (the Location Provider API) but cannot simultaneously fabricate the full spectrum of environmental sensor readings that would correspond to a genuine outdoor environment in a specific urban zone.
+HustleHedge does not rely on a single location signal. Instead, it validates the physical coherence of the device's entire reported environment. A spoofing application typically overrides location data at the Android software layer (the Location Provider API) but cannot simultaneously fabricate the full spectrum of environmental sensor readings that would correspond to a genuine outdoor environment in a specific urban zone.
 
 The core instrument of this differentiation is the GPS Drift Index (GDI), which quantifies spatial inconsistency across independent positioning sources:
 
@@ -267,7 +267,7 @@ Fraud rings form statistically improbable dense subgraphs within this graph. The
 
 ### 4. The UX Balance: Handling Flagged Claims Without Penalising Honest Workers
 
-A fundamental design principle of GigMate is that the anti-spoofing architecture must never become an instrument of unjust denial for genuine workers. A delivery partner caught in a severe weather event may experience a network drop, degraded sensor readings, or semi-outdoor conditions (such as sheltering under a flyover) that could superficially resemble spoofing signals.
+A fundamental design principle of HustleHedge is that the anti-spoofing architecture must never become an instrument of unjust denial for genuine workers. A delivery partner caught in a severe weather event may experience a network drop, degraded sensor readings, or semi-outdoor conditions (such as sheltering under a flyover) that could superficially resemble spoofing signals.
 
 The platform manages this uncertainty through a Bayesian reasoning framework and a tiered workflow:
 
@@ -378,9 +378,9 @@ The platform provides a real-time analytics dashboard for operations teams and a
 
 ## Future Outlook
 
-As the adversarial landscape evolves, more sophisticated spoofing attacks will attempt to mimic genuine environmental sensor noise. GigMate's next phase of development will incorporate Behavioural Biometrics as a continuous passive authentication layer. Each delivery partner has a unique digital signature in the way they interact with their device—the angle at which they hold their phone while riding, their screen-swipe patterns, and the pressure they apply during task completion. Building a mathematical model of these passive biometrics will make account takeover and automated spoofing attempts structurally impractical, without introducing any additional friction for the legitimate worker.
+As the adversarial landscape evolves, more sophisticated spoofing attacks will attempt to mimic genuine environmental sensor noise. HustleHedge's next phase of development will incorporate Behavioural Biometrics as a continuous passive authentication layer. Each delivery partner has a unique digital signature in the way they interact with their device—the angle at which they hold their phone while riding, their screen-swipe patterns, and the pressure they apply during task completion. Building a mathematical model of these passive biometrics will make account takeover and automated spoofing attempts structurally impractical, without introducing any additional friction for the legitimate worker.
 
-GigMate is not solely a fraud prevention tool. It is a foundational layer for a more equitable gig economy—one where the financial burden of climate change and urban volatility is distributed across platforms, customers, and insurers, rather than falling entirely on the shoulders of the delivery partner.
+HustleHedge is not solely a fraud prevention tool. It is a foundational layer for a more equitable gig economy—one where the financial burden of climate change and urban volatility is distributed across platforms, customers, and insurers, rather than falling entirely on the shoulders of the delivery partner.
 
 ---
 
