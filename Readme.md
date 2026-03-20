@@ -12,7 +12,7 @@
 - **Member**: Johan Rajesh
 - **Member**: A Vyshakh
 ---
-###⚠️ The Problem:
+## ⚠️ The Problem:
 
 Person B delivers food on Zomato in Bangalore. His earnings,last month:
 - Week 1: ₹4,200 earned
