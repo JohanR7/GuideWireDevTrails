@@ -4,7 +4,7 @@
 > 🏆 Guidewire DEVTrails 2026 | University Hackathon Submission  
 > Protecting Zomato & Swiggy delivery partners from income loss due to uncontrollable disruptions (rain, traffic, app outages, etc.).
 ---
-# 🛡️ Power Rangers CodeForce
+# Team Name :- Power Rangers CodeForce
 
 ## 👥 Team Members
 
