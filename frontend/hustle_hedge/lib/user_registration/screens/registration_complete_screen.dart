@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../theme/app_theme.dart';
+import '../../providers/providers.dart';
+import '../../services/api_client.dart';
 import '../models/registration_data.dart';
 
 class RegistrationCompleteScreen extends StatefulWidget {
@@ -34,6 +37,48 @@ class _RegistrationCompleteScreenState extends State<RegistrationCompleteScreen>
       curve: const Interval(0.3, 1.0, curve: Curves.easeOut),
     );
     _animController.forward();
+    
+    // Submit registration data to backend automatically
+    Future.delayed(const Duration(milliseconds: 1000), _submitRegistration);
+  }
+
+  Future<void> _submitRegistration() async {
+    try {
+      final registrationData = {
+        'full_name': widget.data.fullName ?? '',
+        'residential_address': widget.data.residentialAddress,
+        'delivery_partner_id': widget.data.deliveryPartnerId,
+        'platform': widget.data.platform,
+        'date_of_birth': widget.data.dateOfBirth,
+        'aadhar_number': widget.data.aadharNumber,
+        'vehicle_type': widget.data.vehicleType,
+        'driving_license': widget.data.drivingLicense,
+      };
+      
+      final result = await ApiClient.submitRegistration(registrationData);
+      
+      if (result['success'] == true && mounted) {
+        // Data submitted successfully
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profile registered successfully!')),
+        );
+      }
+    } catch (e) {
+      print('Error submitting registration: $e');
+      // Continue anyway - user can still view plans
+    }
+  }
+
+  Future<void> _navigateToPlans() async {
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, '/plans');
+    }
+  }
+
+  Future<void> _skipForNow() async {
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, '/plans');
+    }
   }
 
   @override
@@ -107,14 +152,12 @@ class _RegistrationCompleteScreenState extends State<RegistrationCompleteScreen>
                 child: Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        // Navigate to home / plan selection
-                      },
+                      onPressed: _navigateToPlans,
                       child: const Text('View My Plans'),
                     ),
                     const SizedBox(height: 12),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: _skipForNow,
                       child: const Text(
                         'Do this later',
                         style: TextStyle(

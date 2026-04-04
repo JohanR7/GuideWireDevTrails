@@ -1,80 +1,136 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'theme/app_theme.dart';
+import 'providers/providers.dart';
+import 'services/monitoring_service.dart';
+import 'screens/welcome_screen.dart';
+import 'screens/sign_in_screen.dart';
+import 'screens/home/home_screen.dart';
+import 'screens/plans/plans_screen.dart';
+import 'screens/policy/policy_screen.dart';
+import 'screens/claims/claims_screen.dart';
+import 'screens/claims/claim_result_screen.dart';
+import 'user_registration/screens/registration_chat_screen.dart';
+import 'models/models.dart';
 
 void main() {
-  runApp(MyApp());
+  final monitoringService = MonitoringService();
+  monitoringService.initialize();
+  
+  runApp(MyApp(monitoringService: monitoringService));
 }
 
 class MyApp extends StatelessWidget {
+  final MonitoringService monitoringService;
+
+  const MyApp({required this.monitoringService});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => PolicyProvider()),
+        ChangeNotifierProvider(create: (_) => ClaimsProvider()),
+        ChangeNotifierProvider(create: (_) => MonitoringProvider()),
+      ],
+      child: MaterialApp(
+        title: 'HustleHedge',
+        theme: ThemeData(
+          primaryColor: const Color(0xFF1A7A7A),
+          fontFamily: 'Poppins',
+          useMaterial3: true,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF1A7A7A),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.grey[50],
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Colors.grey[300]!),
+            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          ),
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const AuthGate(),
+        routes: {
+          '/welcome': (context) => const WelcomeScreen(),
+          '/sign-in': (context) => const SignInScreen(),
+          '/registration': (context) => const RegistrationChatScreen(),
+          '/home': (context) => const HomeScreen(),
+          '/plans': (context) => const PlansScreen(),
+          '/policy': (context) => const PolicyScreen(),
+          '/claims': (context) => const ClaimsScreen(),
+          '/claim-result': (context) {
+            final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+            if (args != null) {
+              final claim = args['claim'] as Claim;
+              final approved = args['approved'] as bool;
+              return ClaimResultScreen(claim: claim, approved: approved);
+            }
+            return const HomeScreen(); // Fallback
+          },
+        },
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    monitoringService.dispose();
   }
 }
 
-class HomePage extends StatefulWidget {
+class AuthGate extends StatefulWidget {
+  const AuthGate({Key? key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<AuthGate> createState() => _AuthGateState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
+class _AuthGateState extends State<AuthGate> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), _checkAuth);
+  }
 
-  String responseText = "";
+  Future<void> _checkAuth() async {
+    final authProvider = context.read<AuthProvider>();
+    final token = await authProvider.getStoredToken();
 
-  Future<void> sendData() async {
-    final url = Uri.parse("http://10.0.2.2:5000/api/data"); 
-    // ⚠️ Use 10.0.2.2 for Android emulator instead of localhost
-
-    final response = await http.post(
-      url,
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        "name": nameController.text,
-        "age": ageController.text,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      setState(() {
-        responseText = response.body;
-      });
-    } else {
-      setState(() {
-        responseText = "Error: ${response.statusCode}";
-      });
+    if (mounted) {
+      if (token != null) {
+        // Token exists, check if user has a policy
+        final policyProvider = context.read<PolicyProvider>();
+        await policyProvider.fetchActivePolicy();
+        
+        if (mounted) {
+          Navigator.pushReplacementNamed(
+            context,
+            policyProvider.hasActivePolicy ? '/home' : '/plans',
+          );
+        }
+      } else {
+        // No token, go to welcome/signin flow
+        Navigator.pushReplacementNamed(context, '/welcome');
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Flutter + Flask Demo")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(labelText: "Name"),
-            ),
-            TextField(
-              controller: ageController,
-              decoration: InputDecoration(labelText: "Age"),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: sendData,
-              child: Text("Send POST Request"),
-            ),
-            SizedBox(height: 20),
-            Text(responseText),
-          ],
-        ),
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
